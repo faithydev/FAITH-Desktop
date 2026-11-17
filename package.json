@@ -1,0 +1,70 @@
+{
+  "name": "faith-desktop",
+  "productName": "FAITH",
+  "version": "1.0.0",
+  "description": "FAITH platformasi uchun Windows kompyuter ilovasi",
+  "author": "FAITH",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node scripts/run.js",
+    "start:local": "node scripts/run.js --url=http://localhost:3100",
+    "check": "node --check src/main.js && node --check src/config.js && node --check scripts/run.js",
+    "dist": "electron-builder --win --x64",
+    "dist:installer": "electron-builder --win nsis --x64",
+    "dist:portable": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "45.2.1",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "uz.faith.desktop",
+    "productName": "FAITH",
+    "copyright": "Copyright © 2026 FAITH",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "FAITH-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FAITH",
+      "uninstallDisplayName": "FAITH",
+      "artifactName": "FAITH-Setup-x64.${ext}",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "FAITH-Portable-x64.${ext}"
+    },
+    "publish": null
+  },
+  "repository": "https://github.com/faithydev/FAITH-Desktop"
+}

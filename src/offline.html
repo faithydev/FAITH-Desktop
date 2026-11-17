@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file:; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+  <title>FAITH — aloqa yo‘q</title>
+  <style>
+    :root { --bg: #000; --neon: #00ff66; --fg: #fff; --muted: rgba(255, 255, 255, .55); }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--fg); }
+    body {
+      min-height: 100vh; display: grid; place-items: center; padding: 24px; box-sizing: border-box;
+      font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(70% 45% at 50% 110%, rgba(0, 255, 102, .18), transparent 70%), var(--bg);
+    }
+    .card {
+      width: min(440px, 100%); padding: 36px 32px; box-sizing: border-box; text-align: center;
+      border: 1px solid rgba(255, 255, 255, .08); border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .015));
+      backdrop-filter: blur(18px);
+    }
+    img { width: 56px; margin-bottom: 22px; opacity: .95; }
+    h1 { margin: 0 0 10px; font-size: 22px; font-weight: 650; letter-spacing: -.01em; }
+    p { margin: 0 0 26px; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+    button {
+      position: relative; overflow: hidden; cursor: pointer;
+      padding: 12px 26px; border-radius: 999px; font: inherit; font-size: 14.5px; font-weight: 600; color: #000;
+      border: 0; background: var(--neon); box-shadow: 0 0 0 1px rgba(0, 255, 102, .4), 0 8px 30px rgba(0, 255, 102, .25);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    button:hover { box-shadow: 0 0 0 1px rgba(0, 255, 102, .7), 0 10px 40px rgba(0, 255, 102, .4); }
+    button:active { transform: scale(.97); }
+    button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    button[disabled] { opacity: .6; cursor: progress; }
+    .status { margin-top: 18px; font-size: 12.5px; color: var(--muted); min-height: 1.2em; }
+    .reason { margin-top: 6px; font-size: 11.5px; color: rgba(255, 255, 255, .3); word-break: break-word; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <img src="../assets/mark.png" alt="">
+    <h1>FAITH bilan aloqa yo‘q</h1>
+    <p>Internet ulanishini tekshiring. Aloqa tiklanishi bilan FAITH o‘zi qayta ochiladi.</p>
+    <button id="retry" type="button">Qayta urinish</button>
+    <div class="status" id="status" aria-live="polite"></div>
+    <div class="reason" id="reason"></div>
+  </main>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const raw = params.get('url') || '';
+    const target = /^https?:\/\//i.test(raw) ? raw : '';
+    document.getElementById('reason').textContent = params.get('reason') || '';
+
+    const button = document.getElementById('retry');
+    const status = document.getElementById('status');
+    let seconds = 15;
+
+    function retry() {
+      if (!target) return;
+      button.disabled = true;
+      status.textContent = 'Ulanmoqda…';
+      location.replace(target);
+    }
+
+    button.addEventListener('click', retry);
+    window.addEventListener('online', retry);
+    setInterval(() => {
+      if (button.disabled) return;
+      seconds -= 1;
+      if (seconds <= 0) return retry();
+      status.textContent = `${seconds} soniyadan keyin qayta urinadi`;
+    }, 1000);
+  </script>
+</body>
+</html>

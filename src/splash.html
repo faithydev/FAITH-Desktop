@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file:; style-src 'unsafe-inline'">
+  <title>FAITH</title>
+  <style>
+    :root { --bg: #000; --neon: #00ff66; --fg: #fff; }
+    html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; -webkit-app-region: drag; user-select: none; }
+    body {
+      display: grid; place-items: center;
+      font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif; color: var(--fg);
+    }
+    .glow {
+      position: absolute; inset: auto 0 -40% 0; height: 70%;
+      background: radial-gradient(60% 60% at 50% 100%, rgba(0, 255, 102, .28), rgba(0, 255, 102, 0) 70%);
+      animation: breathe 2.4s ease-in-out infinite;
+    }
+    .wrap { position: relative; display: grid; justify-items: center; gap: 26px; }
+    img { width: 108px; height: auto; filter: drop-shadow(0 0 22px rgba(0, 255, 102, .25)); animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; }
+    .word { font-size: 13px; letter-spacing: .5em; text-indent: .5em; font-weight: 600; opacity: .9; }
+    .bar { width: 140px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+    .bar::after {
+      content: ""; display: block; width: 40%; height: 100%; border-radius: inherit;
+      background: var(--neon); box-shadow: 0 0 12px var(--neon);
+      animation: slide 1.1s cubic-bezier(.6, 0, .4, 1) infinite;
+    }
+    @keyframes slide { from { transform: translateX(-110%); } to { transform: translateX(260%); } }
+    @keyframes breathe { 0%, 100% { opacity: .7; } 50% { opacity: 1; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: 0s !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="wrap">
+    <img src="../assets/mark.png" alt="FAITH">
+    <div class="word">FAITH</div>
+    <div class="bar" role="progressbar" aria-label="Yuklanmoqda"></div>
+  </div>
+</body>
+</html>
