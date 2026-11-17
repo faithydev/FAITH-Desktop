@@ -10,7 +10,7 @@
  * release with both files (GitHub CLI), then update the version and sizes on the website's
  * download page (../FAITH/apps/web/src/lib/desktop.ts) and push that one file.
  */
-const { execFileSync } = require('node:child_process');
+const { execFileSync, execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -21,8 +21,10 @@ const files = ['dist/FAITH-Setup-x64.exe', 'dist/FAITH-Portable-x64.exe'];
 
 const run = (cmd, args, opts = {}) => {
   console.log(`> ${cmd} ${args.join(' ')}`);
-  // npx is a .cmd file on Windows and needs a shell; everything else runs directly so arguments keep their spaces.
-  return execFileSync(cmd, args, { cwd: root, stdio: 'inherit', shell: process.platform === 'win32' && cmd === 'npx', ...opts });
+  // npx is a .cmd file on Windows and needs a shell, so it gets one plain command line (its arguments have no spaces);
+  // everything else runs directly so arguments keep their spaces.
+  if (cmd === 'npx') return execSync(`npx ${args.join(' ')}`, { cwd: root, stdio: 'inherit', ...opts });
+  return execFileSync(cmd, args, { cwd: root, stdio: 'inherit', ...opts });
 };
 const out = (cmd, args, cwd = root) => execFileSync(cmd, args, { cwd, encoding: 'utf8' }).trim();
 
