@@ -65,9 +65,9 @@ qayta yig'ish kifoya.
 Fayl nomlari o'zgarmaydi (`FAITH-Setup-x64.exe`, `FAITH-Portable-x64.exe`), shuning uchun saytdagi
 `/download` sahifasi `releases/latest/download/...` orqali doim eng yangisini beradi.
 
-1. `package.json` dagi `version` ni oshiring, `npm run dist`.
-2. GitHub'da `faithydev/FAITH-Desktop` → Releases → yangi release (`v1.0.1` kabi) va ikkala `.exe` ni yuklang.
-3. Saytdagi versiya/o'lcham: `FAITH/apps/web/src/lib/desktop.ts`.
+Bitta buyruq: `npm run release` (1.0.0 dan 1.0.1 ga), `npm run release -- minor` yoki `npm run release -- 2.0.0`.
+U versiyani oshiradi, ikkala .exe ni yig'adi, GitHub release yaratadi va saytdagi versiya/o'lchamni
+(`FAITH/apps/web/src/lib/desktop.ts`) yangilab push qiladi. Bir marta `gh auth login` qilingan bo'lishi kerak.
 
 ## Dasturchi uchun
 

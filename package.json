@@ -9,10 +9,11 @@
   "scripts": {
     "start": "node scripts/run.js",
     "start:local": "node scripts/run.js --url=http://localhost:3100",
-    "check": "node --check src/main.js && node --check src/config.js && node --check scripts/run.js",
+    "check": "node --check src/main.js && node --check src/config.js && node --check scripts/run.js && node --check scripts/release.js",
     "dist": "electron-builder --win --x64",
     "dist:installer": "electron-builder --win nsis --x64",
-    "dist:portable": "electron-builder --win portable --x64"
+    "dist:portable": "electron-builder --win portable --x64",
+    "release": "node scripts/release.js"
   },
   "devDependencies": {
     "electron": "45.2.1",
